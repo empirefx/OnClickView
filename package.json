@@ -1,0 +1,22 @@
+{
+  "name": "OnClickView",
+  "version": "1.0.0",
+  "description": "Simple web image zoom",
+  "main": "dist/oneClickView.min.js",
+  "scripts": {
+    "build": "npm run lint && npm run minify",
+    "minify": "npx uglify-js src/oneClickView.js -o dist/oneClickView.min.js -c -m",
+    "lint": "eslint \"src/*.{ts,tsx,js}\"",
+    "prepublish": "npm run build"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "uglify-js": "^3.19.1"
+  },
+  "keywords": [
+    "library",
+    "javascript"
+  ],
+  "author": "EFEX",
+  "license": ""
+}

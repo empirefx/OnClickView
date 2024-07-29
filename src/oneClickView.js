@@ -119,14 +119,14 @@ let OneClickView = (function () {
       imageContainer.style.alignItems = 'center';
       imageContainer.style.justifyContent = 'center';
 
-      imageNode.style.cursor = "zoom-in";
+      imageNode.style.cursor = 'zoom-in';
     } else {
       imageContainer.style.maxWidth = '100%';
       imageContainer.style.maxHeight = '100%';
       imageContainer.style.alignItems = 'start';
       imageContainer.style.justifyContent = 'start';
 
-      imageNode.style.cursor = "zoom-out";
+      imageNode.style.cursor = 'zoom-out';
     }
   }
 
