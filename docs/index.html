@@ -1,38 +1,113 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>One Click View Library</title>
-  <style type="text/css">
-    img:hover{
+  <style>
+    /* Styles for the main page */
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding: 20px;
+      justify-content: center;
+    }
+
+    .image-container {
+      position: relative;
+      width: 150px;
+      height: 150px;
+    }
+
+    .thumbnail {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       cursor: pointer;
-    }
-
-    .image-container{
-      
-    }
-
-    .image-container:hover{
-      
-    }
-
-    .image-node{
-
-    }
-
-    .image-node:hover{
-
+      transition: .3s;
     }
   </style>
+  <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-  <h1>Demo</h1>
-  <p>Github <a href="https://empirefx.github.io/OnClickView/">empirefx/oneclickview</a></p>
-  <img src="images/thumbnails/251235553_thumbnail.png" alt="251235553_thumbnail.png" />
-  <img src="images/thumbnails/Board_Copy_34_small.jpeg" alt="Board_Copy_34_small.jpeg" />
-  <img src="images/thumbnails/image-original_2400x1800_thumbnail.jpeg" alt="image-original_2400x1800_thumbnail.jpeg" />
-  <img src="images/thumbnails/original-f334124gg-thumbnail.png" alt="original-f334124gg-thumbnail.png" />
+  <div class="gallery">
+    <!-- Image 1 -->
+    <div class="image-container">
+      <a href="#img1">
+        <img class="thumbnail"
+             src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ix&fm=jpg&w=200&fit=max"
+             alt="Person on mountain">
+      </a>
+    </div>
+    <!-- Image 2 -->
+    <div class="image-container">
+      <a href="#img2">
+        <img class="thumbnail"
+             src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ix&fm=jpg&w=200&fit=max"
+             alt="Snowy mountain">
+      </a>
+    </div>
+    <!-- Image 3 -->
+    <div class="image-container">
+      <a href="#img3">
+        <img class="thumbnail"
+             src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ix&fm=jpg&w=200&fit=max"
+             alt="Forest">
+      </a>
+    </div>
+  </div>
+
+  <!-- Overlays for Image 1 -->
+  <div id="img1" class="enlarged half-view">
+    <a class="bg" href="#"></a>
+    <div class="content">
+      <a href="#img1-full">
+        <img data-src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0" alt="Person on mountain" loading="lazy">
+      </a>
+    </div>
+  </div>
+  <div id="img1-full" class="enlarged full-view">
+    <div class="content">
+      <a href="#img1">
+        <img data-src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0" alt="Person on mountain" loading="lazy">
+      </a>
+    </div>
+  </div>
+
+  <!-- Overlays for Image 2 -->
+  <div id="img2" class="enlarged half-view">
+    <a class="bg" href="#"></a>
+    <div class="content">
+      <a href="#img2-full">
+        <img data-src="https://images.unsplash.com/photo-1519681393784-d120267933ba" alt="Snowy mountain" loading="lazy">
+      </a>
+    </div>
+  </div>
+  <div id="img2-full" class="enlarged full-view">
+    <div class="content">
+      <a href="#img2">
+        <img data-src="https://images.unsplash.com/photo-1519681393784-d120267933ba" alt="Snowy mountain" loading="lazy">
+      </a>
+    </div>
+  </div>
+
+  <!-- Overlays for Image 3 -->
+  <div id="img3" class="enlarged half-view">
+    <a class="bg" href="#"></a>
+    <div class="content">
+      <a href="#img3-full">
+        <img data-src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e" alt="Forest" loading="lazy">
+      </a>
+    </div>
+  </div>
+  <div id="img3-full" class="enlarged full-view">
+    <div class="content">
+      <a href="#img3">
+        <img data-src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e" alt="Forest" loading="lazy">
+      </a>
+    </div>
+  </div>
 </body>
-<script type="module" src="js/index.js"></script>
+<script src="js/index.js"></script>
 </html>
