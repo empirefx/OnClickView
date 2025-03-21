@@ -1,35 +1,61 @@
 # OnClickView
-
 ## Description
 
-OnClickView is a lightweight JavaScript library that allows you to easily add zoom functionality to images on your web pages. Simply click on an image to zoom in and click again to zoom out.
+Trying to mimic what *Dribble* does with just CSS for display single full images. By using CSS `:target` pseudo-class.
 
 ### Usage
 
-To use OnClickView, simply add the onclickview class to any image you want to be zoomable:
+Add `docs/css/main.css`
+
+HTML markup would looks like something this.
 ```HTML
-<img src="your-image.jpg" class="onclickview" alt="Zoomable Image">
+/* Thumbnail */
+<a href="#img">
+   <img class="thumbnail" src="thumbnail url" alt="Person on mountain">
+</a>
+
+/* Hidden containers */
+/* The half-view when user clicks on the Thumbnail */
+<div id="img" class="enlarged half-view">
+ <a class="bg" href="#"></a>
+ <div class="content">
+   <a href="#img-full">
+     <img src="full image size url" alt="Person on mountain">
+   </a>
+ </div>
+</div>
+/* The full-view when user clicks on the image displayed in the half-view container */
+<div id="img-full" class="enlarged full-view">
+ <div class="content">
+   <a href="#img">
+     <img src="full image size url" alt="Person on mountain">
+   </a>
+ </div>
+</div>
 ```
 
-You can also initialize the library using JavaScript:
+Not meant for display many images, but it does what intended and without javascript(display one image). Check `docs/index.html` for multiple images.
+
+### Lazy loading
+
+Is posible to add `lazy loading` but with javascript(*data-src*, *loading* attributes).
+
+```HTML
+<img data-src="full image size url" alt="Person on mountain" loading="lazy">
+```
+
 ```JavaScript
-
-document.addEventListener("DOMContentLoaded", function() {
-    OnClickView.init();
-});
+  window.addEventListener('hashchange', function() {
+    var targetId = location.hash.substring(1);
+    var overlay = document.getElementById(targetId);
+    if (overlay) {
+      overlay.querySelectorAll('img[data-src]').forEach(function(img) {
+        if (!img.getAttribute('src')) {
+          img.src = img.getAttribute('data-src');
+        }
+      });
+    }
+  });
 ```
-
-### Configuration
-
-The **config** object in *oneClickView.js* contains the following properties:
-
-- `containerClassName`: The class name for the image container. Default: 'image-container'.
-- `imageClassName`: The class name for the image node. Default: 'image-node'.
-- `pathImage`: The path to the images. Default: 'images/'.
-- `zoom`: A boolean indicating whether zoom functionality is enabled. Default: true.
-- `patterns`: An object containing:
-   - `thumbnail`: A regex pattern for matching thumbnail image names. Default: '(_thumbnail|-thumbnail|_thumb|_small|_medium)?'.
-  - `caseInsensitive`: A boolean indicating whether the pattern matching is case insensitive. Default: true
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
