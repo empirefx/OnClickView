@@ -38,6 +38,10 @@ export class Modal {
     }
   }
 
+  public getElement(): HTMLElement {
+    return this.element;
+  }
+
   public show(imgSrc: string): void {
     // Clear previous content
     this.element.innerHTML = '';
@@ -45,7 +49,7 @@ export class Modal {
     // Create and append the full-size image
     const fullImg = document.createElement('img');
     fullImg.src = imgSrc;
-    fullImg.className = 'oneclickview-modal-img';
+    fullImg.className = 'oneclickview-modal-img loading';
     
     // Toggle full-width on image click
     fullImg.addEventListener('click', (e) => {
