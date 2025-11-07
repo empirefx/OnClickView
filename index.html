@@ -73,6 +73,21 @@
           loading="lazy">
       </div>
     </div>
-    <script type="module" src="/src/main.ts"></script>
+    <script type="module">
+      // In development, import directly from source
+      // In production, this will be built into the bundle
+      import { oneclickview } from './src/index.ts';
+      
+      // Initialize the library with configuration
+      document.addEventListener('DOMContentLoaded', () => {
+        new oneclickview({
+          selector: '.gallery img',
+          zoomLevel: 1.5,
+          transitionDuration: 0.2,
+          modalBackground: 'rgba(88, 114, 143, 0.52)',
+          modalZIndex: 1000
+        });
+      });
+    </script>
   </body>
 </html>

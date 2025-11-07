@@ -32,10 +32,16 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Prepare public directory
+        run: |
+          mkdir -p public
+          cp -r dist/* public/src/
+          cp index.html public/
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: 'dist'
+          path: 'public'
 
   deploy:
     needs: build
@@ -50,3 +56,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+    
