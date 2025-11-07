@@ -35,6 +35,7 @@ jobs:
       - name: Prepare public directory
         run: |
           mkdir -p public
+          mkdir -p public/src
           cp -r dist/* public/src/
           cp index.html public/
 
