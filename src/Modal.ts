@@ -1,7 +1,4 @@
-interface ModalConfig {
-  backgroundColor: string;
-  zIndex: number;
-}
+import type { ModalConfig } from './types';
 
 export class Modal {
   private element: HTMLElement;
@@ -50,6 +47,12 @@ export class Modal {
     fullImg.src = imgSrc;
     fullImg.className = 'oneclickview-modal-img';
     
+    // Toggle full-width on image click
+    fullImg.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.element.classList.toggle('full-width');
+    });
+    
     this.element.appendChild(fullImg);
     this.element.classList.add('visible');
     document.body.style.overflow = 'hidden';
@@ -57,6 +60,7 @@ export class Modal {
 
   public hide(): void {
     this.element.classList.remove('visible');
+    this.element.classList.remove('full-width');
     document.body.style.overflow = '';
   }
 

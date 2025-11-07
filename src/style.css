@@ -22,12 +22,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: zoom-out;
   z-index: 1000;
   background-color: rgba(0, 0, 0, 0.9);
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.oneclickview-modal.full-width {
+  align-items: flex-start;
+  overflow-y: auto;
+  scrollbar-width: thin;
 }
 
 .oneclickview-modal.visible {
@@ -39,9 +46,14 @@
   max-width: 90%;
   max-height: 90vh;
   object-fit: contain;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
+  cursor: zoom-in;
 }
 
-.oneclickview-modal.zoomed img {
-  transform: scale(1.1);
+.oneclickview-modal.full-width img {
+  max-width: 100%;
+  max-height: none;
+  width: auto;
+  height: auto;
+  cursor: zoom-out;
 }

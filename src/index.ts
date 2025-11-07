@@ -1,12 +1,5 @@
 import { Modal } from './Modal';
-
-interface OneClickViewConfig {
-  selector: string;
-  zoomLevel?: number;
-  transitionDuration?: number;
-  modalBackground?: string;
-  modalZIndex?: number;
-}
+import type { OneClickViewConfig } from './types';
 
 export class oneclickview {
   private config: Required<OneClickViewConfig>;
