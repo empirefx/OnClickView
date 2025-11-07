@@ -50,16 +50,28 @@ export class Modal {
     const fullImg = document.createElement('img');
     fullImg.src = imgSrc;
     fullImg.className = 'oneclickview-modal-img loading';
+    fullImg.setAttribute('data-loading', 'true');
     
-    // Toggle full-width on image click
+    // Only allow toggling full-width when not loading
     fullImg.addEventListener('click', (e) => {
       e.stopPropagation();
-      this.element.classList.toggle('full-width');
+      if (fullImg.getAttribute('data-loading') !== 'true') {
+        this.element.classList.toggle('full-width');
+      }
     });
     
     this.element.appendChild(fullImg);
     this.element.classList.add('visible');
     document.body.style.overflow = 'hidden';
+  }
+  
+  // Set image loaded state
+  // This is called when the full-size image is loaded
+  public setImageLoaded(): void {
+    const img = this.element.querySelector('img');
+    if (img) {
+      img.setAttribute('data-loading', 'false');
+    }
   }
 
   public hide(): void {

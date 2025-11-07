@@ -47,10 +47,20 @@
   max-height: 90vh;
   object-fit: contain;
   transition: all 0.3s ease;
-  cursor: zoom-in;
+  cursor: wait; /* Show loading cursor by default */
   opacity: 0;
   transform: scale(0.95);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+}
+
+.oneclickview-modal img[data-loading="true"] {
+  cursor: wait; /* Loading cursor */
+  pointer-events: none; /* Disable all pointer events */
+}
+
+.oneclickview-modal img[data-loading="false"] {
+  cursor: zoom-in; /* Show zoom cursor when image is loaded */
+  pointer-events: auto; /* Re-enable pointer events */
 }
 
 .oneclickview-modal img.loading {

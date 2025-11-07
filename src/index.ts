@@ -52,7 +52,10 @@ export class oneclickview {
     this.showModal(thumbnailSrc);
     
     // If no full-size image is provided or it's the same as thumbnail, we're done
-    if (!fullSizeSrc || fullSizeSrc === thumbnailSrc) return;
+    if (!fullSizeSrc || fullSizeSrc === thumbnailSrc) {
+      this.modal?.setImageLoaded();
+      return;
+    }
     
     // Preload the full-size image
     const img = new Image();
@@ -64,6 +67,7 @@ export class oneclickview {
           modalImg.src = fullSizeSrc;
           modalImg.classList.add('loaded');
           modalImg.classList.remove('loading');
+          this.modal.setImageLoaded();
         }
       }
     };
