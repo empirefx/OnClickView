@@ -15,18 +15,9 @@ export class Modal {
 
   private createModalElement(): HTMLElement {
     const modal = document.createElement('div');
-    modal.style.position = 'fixed';
-    modal.style.top = '0';
-    modal.style.left = '0';
-    modal.style.width = '100%';
-    modal.style.height = '100%';
-    modal.style.backgroundColor = this.config.backgroundColor;
-    modal.style.display = 'flex';
-    modal.style.justifyContent = 'center';
-    modal.style.alignItems = 'center';
+    modal.className = 'oneclickview-modal';
     modal.style.zIndex = this.config.zIndex.toString();
-    modal.style.cursor = 'zoom-out';
-    modal.style.display = 'none';
+    modal.style.backgroundColor = this.config.backgroundColor;
     
     document.body.appendChild(modal);
     return modal;
@@ -57,17 +48,15 @@ export class Modal {
     // Create and append the full-size image
     const fullImg = document.createElement('img');
     fullImg.src = imgSrc;
-    fullImg.style.maxWidth = '90%';
-    fullImg.style.maxHeight = '90vh';
-    fullImg.style.objectFit = 'contain';
+    fullImg.className = 'oneclickview-modal-img';
     
     this.element.appendChild(fullImg);
-    this.element.style.display = 'flex';
+    this.element.classList.add('visible');
     document.body.style.overflow = 'hidden';
   }
 
   public hide(): void {
-    this.element.style.display = 'none';
+    this.element.classList.remove('visible');
     document.body.style.overflow = '';
   }
 

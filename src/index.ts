@@ -56,18 +56,10 @@ export class oneclickview {
     this.createModal();
     
     this.elements.forEach(element => {
-      // Hover effect
-      element.style.transition = `transform ${this.config.transitionDuration}s ease`;
-      
-      element.addEventListener('mouseenter', () => {
-        element.style.transform = `scale(${this.config.zoomLevel})`;
-        element.style.zIndex = '10';
-      });
-
-      element.addEventListener('mouseleave', () => {
-        element.style.transform = 'scale(1)';
-        element.style.zIndex = '';
-      });
+      // Add hover effect class & custom styles
+      element.classList.add('oneclickview-hover');
+      element.style.setProperty('--transition-duration', `${this.config.transitionDuration}s`);
+      element.style.setProperty('--zoom-level', this.config.zoomLevel.toString());
       
       // Click to show full image
       element.addEventListener('click', (e) => {
@@ -98,18 +90,16 @@ export class oneclickview {
     this.initialize(); // Re-initialize with new config
   }
 
-  // Cleanup method to remove event listeners
+  // Cleanup method to remove event listeners and classes
   public destroy(): void {
     if (!this.elements) return;
     
     this.elements.forEach(element => {
-      element.removeEventListener('mouseenter', () => {});
-      element.removeEventListener('mouseleave', () => {});
       element.removeEventListener('click', () => {});
       element.removeEventListener('keydown', () => {});
-      element.style.transform = '';
-      element.style.transition = '';
-      element.style.zIndex = '';
+      element.classList.remove('oneclickview-hover');
+      element.style.removeProperty('--transition-duration');
+      element.style.removeProperty('--zoom-level');
     });
     
     this.modal?.destroy();
