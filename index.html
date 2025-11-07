@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>onclickview</title>
+    <style>
+    :root {
+      font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+      font-weight: 400;
+
+      color-scheme: light dark;
+      color: rgba(255, 255, 255, 0.87);
+      background-color: #242424;
+
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      margin: 0;
+      display: flex;
+      place-items: center;
+      min-width: 320px;
+      min-height: 100vh;
+    }
+
+    #app {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding: 20px;
+      justify-content: center;
+    }
+
+    .thumbnail {
+      max-width: 150px;
+      max-height: 150px;
+      object-fit: cover;
+      cursor: pointer;
+      transition: .3s;
+    }
+    </style>
+  <link rel="stylesheet" href="src/style.css">
+  </head>
+  <body>
+    <div id="app">
+      <div class="gallery" id="gallery">
+        <img class="thumbnail"
+          src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ix&fm=jpg&w=200&fit=max"
+          data-src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0"
+          alt="Person on mountain"
+          loading="lazy">
+        <img class="thumbnail"
+          src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ix&fm=jpg&w=200&fit=max"
+          data-src="https://images.unsplash.com/photo-1519681393784-d120267933ba"
+          alt="Snowy mountain"
+          loading="lazy">
+        <img class="thumbnail"
+          src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ix&fm=jpg&w=200&fit=max"
+          data-src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e"
+          alt="Forest"
+          loading="lazy">
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
