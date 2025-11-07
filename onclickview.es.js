@@ -1,0 +1,102 @@
+var Modal = class {
+	element;
+	config;
+	constructor(e) {
+		this.config = e, this.element = this.createModalElement(), this.setupEventListeners();
+	}
+	createModalElement() {
+		let e = document.createElement("div");
+		return e.className = "oneclickview-modal", e.style.zIndex = this.config.zIndex.toString(), e.style.backgroundColor = this.config.backgroundColor, document.body.appendChild(e), e;
+	}
+	setupEventListeners() {
+		this.element.addEventListener("click", (e) => {
+			e.target === this.element && this.hide();
+		}), document.addEventListener("keydown", this.handleKeyDown);
+	}
+	handleKeyDown = (e) => {
+		e.key === "Escape" && this.hide();
+	};
+	getElement() {
+		return this.element;
+	}
+	show(e) {
+		this.element.innerHTML = "";
+		let t = document.createElement("img");
+		t.src = e, t.className = "oneclickview-modal-img loading", t.setAttribute("data-loading", "true"), t.addEventListener("click", (e) => {
+			e.stopPropagation(), t.getAttribute("data-loading") !== "true" && this.element.classList.toggle("full-width");
+		}), this.element.appendChild(t), this.element.classList.add("visible"), document.body.style.overflow = "hidden";
+	}
+	setImageLoaded() {
+		let e = this.element.querySelector("img");
+		e && e.setAttribute("data-loading", "false");
+	}
+	hide() {
+		this.element.classList.remove("visible"), this.element.classList.remove("full-width"), document.body.style.overflow = "";
+	}
+	destroy() {
+		document.removeEventListener("keydown", this.handleKeyDown), this.element.remove();
+	}
+}, oneclickview = class {
+	config;
+	elements = null;
+	modal = null;
+	constructor(e) {
+		this.config = {
+			zoomLevel: e.zoomLevel || 2,
+			transitionDuration: e.transitionDuration || .3,
+			selector: e.selector,
+			modalBackground: e.modalBackground || "rgba(0, 0, 0, 0.9)",
+			modalZIndex: e.modalZIndex || 1e3
+		}, this.initialize();
+	}
+	initialize() {
+		if (this.elements = document.querySelectorAll(this.config.selector), !this.elements || this.elements.length === 0) {
+			console.warn(`No elements found with selector: ${this.config.selector}`);
+			return;
+		}
+		this.setupEventListeners();
+	}
+	createModal() {
+		this.modal ||= new Modal({
+			backgroundColor: this.config.modalBackground,
+			zIndex: this.config.modalZIndex
+		});
+	}
+	showModal(e) {
+		this.modal?.show(e);
+	}
+	loadAndShowImage(e, t) {
+		if (this.showModal(e), !t || t === e) {
+			this.modal?.setImageLoaded();
+			return;
+		}
+		let n = new Image();
+		n.onload = () => {
+			if (this.modal) {
+				let e = this.modal.getElement().querySelector("img");
+				e && (e.src = t, e.classList.add("loaded"), e.classList.remove("loading"), this.modal.setImageLoaded());
+			}
+		}, n.src = t;
+	}
+	setupEventListeners() {
+		this.elements && (this.createModal(), this.elements.forEach((e) => {
+			e.classList.add("oneclickview-hover"), e.style.setProperty("--transition-duration", `${this.config.transitionDuration}s`), e.style.setProperty("--zoom-level", this.config.zoomLevel.toString()), e.addEventListener("click", (t) => {
+				t.preventDefault(), this.loadAndShowImage(e.src, e.dataset.src);
+			}), e.setAttribute("tabindex", "0"), e.addEventListener("keydown", (t) => {
+				(t.key === "Enter" || t.key === " ") && (t.preventDefault(), this.loadAndShowImage(e.src, e.dataset.src));
+			});
+		}));
+	}
+	updateConfig(e) {
+		this.config = {
+			...this.config,
+			...e
+		}, this.initialize();
+	}
+	destroy() {
+		this.elements && (this.elements.forEach((e) => {
+			e.removeEventListener("click", () => {}), e.removeEventListener("keydown", () => {}), e.classList.remove("oneclickview-hover"), e.style.removeProperty("--transition-duration"), e.style.removeProperty("--zoom-level");
+		}), this.modal?.destroy());
+	}
+};
+export { oneclickview };
