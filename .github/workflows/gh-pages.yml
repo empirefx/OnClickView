@@ -36,8 +36,10 @@ jobs:
         run: |
           mkdir -p public
           mkdir -p public/src
+          cp src/style.css public/src/
           cp -r dist/* public/src/
-          cp index.html public/
+          # Copy index.html with updated imports
+          sed 's|from '"'"'./src/index.ts'"'"'|from '"'"'./onclickview.es.js'"'"'|' index.html > public/index.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
