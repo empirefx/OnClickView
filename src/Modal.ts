@@ -21,15 +21,28 @@ export class Modal {
   }
 
   private setupEventListeners(): void {
-    // Close modal when clicking outside the image
-    this.element.addEventListener('click', (e) => {
-      if (e.target === this.element) {
-        this.hide();
-      }
-    });
-    
+    // Use event delegation for modal interactions
+    this.element.addEventListener('pointerdown', this.handlePointerEvent);
     // Close on Escape key
     document.addEventListener('keydown', this.handleKeyDown);
+  }
+
+  private handlePointerEvent = (e: PointerEvent): void => {
+    const target = e.target as HTMLElement;
+    
+    // Close modal when clicking outside the image
+    if (target === this.element) {
+      this.hide();
+      return;
+    }
+    
+    // Toggle full-width when clicking the image (if loaded)
+    if (target.tagName === 'IMG') {
+      e.stopPropagation();
+      if (target.getAttribute('data-loading') !== 'true') {
+        this.element.classList.toggle('full-width');
+      }
+    }
   }
 
   private handleKeyDown = (e: KeyboardEvent): void => {
@@ -52,14 +65,6 @@ export class Modal {
     fullImg.className = 'oneclickview-modal-img loading';
     fullImg.setAttribute('data-loading', 'true');
     
-    // Only allow toggling full-width when not loading
-    fullImg.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (fullImg.getAttribute('data-loading') !== 'true') {
-        this.element.classList.toggle('full-width');
-      }
-    });
-    
     this.element.appendChild(fullImg);
     this.element.classList.add('visible');
     document.body.style.overflow = 'hidden';
@@ -81,6 +86,7 @@ export class Modal {
   }
 
   public destroy(): void {
+    this.element.removeEventListener('pointerdown', this.handlePointerEvent);
     document.removeEventListener('keydown', this.handleKeyDown);
     this.element.remove();
   }

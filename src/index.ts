@@ -80,28 +80,39 @@ export class oneclickview {
     // Create modal container
     this.createModal();
     
+    // Add styles to all matching elements
     this.elements.forEach(element => {
-      // Add hover effect class & custom styles
       element.classList.add('oneclickview-hover');
       element.style.setProperty('--transition-duration', `${this.config.transitionDuration}s`);
       element.style.setProperty('--zoom-level', this.config.zoomLevel.toString());
-      
-      // Click to show full image
-      element.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.loadAndShowImage(element.src, element.dataset.src);
-      });
-      
-      // Make images keyboard accessible
       element.setAttribute('tabindex', '0');
-      element.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          this.loadAndShowImage(element.src, element.dataset.src);
-        }
-      });
     });
+    
+    // Use event delegation for pointer and keyboard events
+    document.addEventListener('pointerdown', this.handlePointerEvent);
+    document.addEventListener('keydown', this.handleKeyDown);
   }
+  
+  private handlePointerEvent = (e: PointerEvent): void => {
+    const target = e.target as HTMLElement;
+    const element = target.closest(this.config.selector);
+    
+    // check if the target is an image element
+    if (element && element.matches(this.config.selector)) {
+      e.preventDefault();
+      this.loadAndShowImage((element as HTMLImageElement).src, (element as HTMLImageElement).dataset.src);
+    }
+  };
+  
+  private handleKeyDown = (e: KeyboardEvent): void => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      const target = e.target as HTMLElement;
+      if (target.matches(this.config.selector)) {
+        e.preventDefault();
+        this.loadAndShowImage((target as HTMLImageElement).src, (target as HTMLImageElement).dataset.src);
+      }
+    }
+  };
 
   // Public method to update configuration
   public updateConfig(newConfig: Partial<OneClickViewConfig>): void {
@@ -111,16 +122,13 @@ export class oneclickview {
 
   // Cleanup method to remove event listeners and classes
   public destroy(): void {
-    if (!this.elements) return;
-    
-    this.elements.forEach(element => {
-      element.removeEventListener('click', () => {});
-      element.removeEventListener('keydown', () => {});
+    document.removeEventListener('pointerdown', this.handlePointerEvent);
+    document.removeEventListener('keydown', this.handleKeyDown);
+    this.elements?.forEach(element => {
       element.classList.remove('oneclickview-hover');
       element.style.removeProperty('--transition-duration');
       element.style.removeProperty('--zoom-level');
     });
-    
     this.modal?.destroy();
   }
 }
