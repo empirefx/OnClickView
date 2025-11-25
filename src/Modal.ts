@@ -64,6 +64,7 @@ export class Modal {
     fullImg.src = imgSrc;
     fullImg.className = 'loading';
     fullImg.setAttribute('data-loading', 'true');
+    fullImg.setAttribute('draggable', 'false');
     
     this.element.appendChild(fullImg);
     this.element.classList.add('visible');
