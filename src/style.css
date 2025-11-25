@@ -88,9 +88,17 @@
     transform: none;
   }
 
+  .oneclickview-modal.full-width {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .oneclickview-modal.full-width img {
-    height: 100vh;
-    object-fit: cover;
-    touch-action: manipulation;
+    width: auto;
+    max-width: none;
+    height: auto;
+    max-height: 100vh;
+    object-fit: contain;
+    touch-action: pan-x pan-y;
   }
 }
