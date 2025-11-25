@@ -62,7 +62,7 @@ export class Modal {
     // Create and append the full-size image
     const fullImg = document.createElement('img');
     fullImg.src = imgSrc;
-    fullImg.className = 'oneclickview-modal-img loading';
+    fullImg.className = 'loading';
     fullImg.setAttribute('data-loading', 'true');
     
     this.element.appendChild(fullImg);
