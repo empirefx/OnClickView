@@ -28,6 +28,7 @@
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
   box-sizing: border-box;
+  user-select: none;
 }
 
 .oneclickview-modal.full-width {
